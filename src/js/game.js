@@ -16,16 +16,23 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(500, 300)
-        fish.vel = new Vector(-10,0)
-        fish.events.on("exitviewport", (e) => this.fishLeft(e))
-        this.add(fish)
+        for (let i=0; i<1000; i++) {
+            const ryanMirror = new Actor()
+            ryanMirror.graphics.use(Resources.ryanMirror.toSprite())
+            ryanMirror.pos = new Vector(Math.random() * 1280, Math.random() * 720)
+            ryanMirror.vel = new Vector(Math.random() * 200 - 100, Math.random() * 200 - 100) //change/second
+
+            ryanMirror.scale = new Vector (Math.random() * 0.75 - 0.5, Math.random() * 0.75 - 0.5)
+
+            ryanMirror.events.on("exitviewport", (e) => this.positionChange(e))
+            this.add(ryanMirror)
+        }
+        
+        
     }
 
-    fishLeft(e) {
-        e.target.pos = new Vector(1350, 300)
+    positionChange(e) {
+        e.target.pos = new Vector(Math.random() * 1280, Math.random() * 720)
     }
 }
 
